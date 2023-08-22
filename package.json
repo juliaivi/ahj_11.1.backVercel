@@ -2,11 +2,11 @@
   "name": "ahj_11.1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "ver":"vercel"
+    "build":"vercel"
   },
   "author": "yulia",
   "license": "ISC",
