@@ -19,33 +19,30 @@ app.use((req, res, next) => { //req - отвечает за запрос с бр
     res.setHeader('Content-Type', 'application/json'); // Метод response.setHeader (имя, значение) (добавлен в версии 0.4.0) представляет собой встроенный интерфейс прикладного программирования модуля ‘http‘, который устанавливает единственное значение заголовка для неявных заголовков. Если этот заголовок уже существует в заголовках, подлежащих отправке, его значение будет заменено. Используйте массив строк здесь, чтобы отправить несколько заголовков с одинаковым именем. Нестроковые значения будут сохранены без изменений. Следовательно, response.getHeader() может возвращать нестроковые значения.
     next();
 });
+const messages = {
+    status: "ok",
+    timestamp: 1553400000,
+    messages: []
+}
+//рандомный интервал 
+function randomInterval() {
+  let min = 5,
+    max = 10;
+ let rand = Math.floor(Math.random() * (max - min + 1) + min); 
+  console.log('Wait for ' + rand + ' seconds');
+  messages.messages.push(createMessage());
+  setInterval(randomInterval, rand * 1000);
+}
 
+randomInterval();
 
 app.get('/messages/unread', async (req, res) => {// url - '/messages/unread'
+    messages.messages = [];
     messages.messages.push(createMessage());
     res.send(JSON.stringify(messages));
 })
 
-const messages = {
-    status: "ok",
-    timestamp: 1553400000,
-    messages: [
-      {
-        id: crypto.randomUUID(),
-        from: "anya@ivanova",
-        subject: "Hello from Anya",
-        body: "Long message body here" ,
-        received: 1553108200
-      },
-      {
-        id: crypto.randomUUID(),
-        from: "alex@petrov",
-        subject: "Hello from Alex Petrov!",
-        body: "Long message body here",
-        received: 1553107200
-      },
-    ]
-}
+
 
 function createMessage() {
     return {
